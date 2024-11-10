@@ -119,7 +119,6 @@ jobs:
           mkdir -p $extension/${{ inputs.extension-ref }}/
           cp -a artifacts/*.zip $extension/${{ inputs.extension-ref }}/
           if ! gh release view mysql -R ${{ github.repository }}; then
-            ls $extension/${{ inputs.extension-ref }}/*.zip | xargs -I% gh release create mysql % -t mysql -n mysql -R ${{ github.repository }}
-          else
-            ls $extension/${{ inputs.extension-ref }}/*.zip | xargs -I% gh release upload mysql % -R ${{ github.repository }} --clobber
+            gh release create mysql -t mysql -n mysql -R ${{ github.repository }}
           fi
+          ls $extension/${{ inputs.extension-ref }}/*.zip | xargs -I% gh release upload mysql % -R ${{ github.repository }} --clobber
